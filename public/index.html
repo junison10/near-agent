@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NEAR Agent — bayar pakai bahasa natural di NEAR</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header>
+  <div class="header-inner">
+    <div>
+      <h1>NEAR Agent</h1>
+      <p class="tagline">bayar pakai bahasa natural di NEAR, via NEAR Intents</p>
+    </div>
+    <div class="badges">
+      <span class="badge sandbox">Agent Economy — NEAR Hackathon: Build Beyond Boundaries</span>
+      <span class="badge mode" id="modeBadge">mode: …</span>
+    </div>
+  </div>
+  <div class="warning" role="alert">
+    ⚠️ Every payment needs your explicit confirmation. In mock mode no real funds move.
+  </div>
+</header>
+
+<main class="layout">
+  <section class="chat-col" aria-label="Chat">
+    <div id="chat" class="chat" aria-live="polite"></div>
+
+    <div class="chips" aria-label="Example prompts">
+      <button type="button" class="chip" data-prompt="bayar 10 NEAR ke alice.near buat invoice #123">bayar 10 NEAR ke alice.near buat invoice #123</button>
+      <button type="button" class="chip" data-prompt="pay 5 USDC to alice.near for hosting">pay 5 USDC to alice.near for hosting</button>
+      <button type="button" class="chip" data-prompt="kirim 2 NEAR ke bob.testnet">kirim 2 NEAR ke bob.testnet</button>
+    </div>
+
+    <form id="composer" class="composer">
+      <label class="sr-only" for="input">Payment instruction</label>
+      <input id="input" type="text" autocomplete="off"
+             placeholder="Contoh: bayar 10 NEAR ke alice.near buat invoice #123" required>
+      <button type="submit" id="sendBtn">Send</button>
+    </form>
+    <p class="hint">Type a payment instruction in Indonesian or English. The agent parses it, checks the guardrails, and waits for your confirmation — nothing is sent on NEAR before you press Confirm.</p>
+  </section>
+
+  <aside class="side-col" aria-label="Settings, allowlist and history">
+    <section class="panel" id="settingsPanel">
+      <h2>Settings</h2>
+      <form id="settingsForm">
+        <label>Per-transaction cap
+          <input id="perTxCap" type="number" min="0" step="0.01" inputmode="decimal" required>
+        </label>
+        <label>Daily cap
+          <input id="dailyCap" type="number" min="0" step="0.01" inputmode="decimal" required>
+        </label>
+        <label>Asset
+          <select id="asset">
+            <option value="NEAR">NEAR</option>
+            <option value="USDC">USDC</option>
+            <option value="USDT">USDT</option>
+            <option value="wNEAR">wNEAR</option>
+          </select>
+        </label>
+        <button type="submit">Save settings</button>
+        <p class="form-msg" id="settingsMsg" aria-live="polite"></p>
+      </form>
+    </section>
+
+    <section class="panel" id="allowlistPanel">
+      <h2>Allowlist</h2>
+      <p class="panel-note">Only NEAR accounts on this list can be paid.</p>
+      <form id="allowlistForm">
+        <label class="sr-only" for="allowlistAccount">Recipient NEAR account</label>
+        <input id="allowlistAccount" type="text" placeholder="alice.near" required>
+        <button type="submit">Add</button>
+      </form>
+      <ul id="allowlist" class="allowlist"></ul>
+      <p class="form-msg" id="allowlistMsg" aria-live="polite"></p>
+    </section>
+
+    <section class="panel" id="historyPanel">
+      <h2>Transaction history</h2>
+      <p class="panel-note">Newest first. Every confirmed or cancelled payment is logged here.</p>
+      <ul id="history" class="history"></ul>
+    </section>
+  </aside>
+</main>
+
+<script src="app.js"></script>
+</body>
+</html>
